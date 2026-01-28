@@ -59,8 +59,17 @@ jobs:
       - name: Read package info
         id: pkg
         run: |
-          # Use a single node invocation to avoid complex shell quoting issues
-          node -e "const p=require('./package.json'); console.log(`name=${p.name}`); console.log(`version=${p.version}`);" >> $GITHUB_OUTPUT
+          # Append outputs directly to GITHUB_OUTPUT using Node to avoid shell quoting pitfalls
+          node -e "const fs=require('fs'); const p=require('./package.json'); fs.writeFileSync(process.env.GITHUB_OUTPUT, `name=${p.name}\nversion=${p.version}\n`, {flag:'a'});"
+
+      - name: Debug package info
+        run: |
+          echo "package.name=${{ steps.pkg.outputs.name }}"
+          echo "package.version=${{ steps.pkg.outputs.version }}"
+
+      - name: Validate package version
+        run: |
+          if [ -z "${{ steps.pkg.outputs.version }}" ]; then echo "Package version is empty. Aborting."; exit 1; fi
 
       - name: Get latest tag
         id: tag
@@ -104,10 +113,15 @@ jobs:
         if: steps.compare.outputs.should_release == 'true'
         run: |
           VERSION=${{ steps.pkg.outputs.version }}
+          if [ -z "$VERSION" ]; then echo "VERSION is empty; aborting tag creation"; exit 1; fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git tag "v${VERSION}"
-          git push origin "v${VERSION}"
+          if git rev-parse "refs/tags/v${VERSION}" >/dev/null 2>&1; then
+            echo "Tag v${VERSION} already exists; skipping tag creation"
+          else
+            git tag "v${VERSION}"
+            git push origin "v${VERSION}"
+          fi
 
       - name: Create GitHub Release
         if: steps.compare.outputs.should_release == 'true'
