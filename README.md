@@ -16,11 +16,6 @@ Chrome 拡張機能 (Vite でビルド)
    npm run dev
 
 3. ビルド
-
-   - Chrome 用 (既定):
-
-     npm run build
-
    - Build (both Chrome & Firefox, single command):
 
      npm run build
