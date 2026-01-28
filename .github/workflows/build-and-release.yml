@@ -60,8 +60,7 @@ jobs:
         id: pkg
         run: |
           # Append outputs directly to GITHUB_OUTPUT using Node to avoid shell quoting pitfalls
-          node -e "const fs=require('fs'); const p=require('./package.json'); fs.writeFileSync(process.env.GITHUB_OUTPUT, `name=${p.name}\nversion=${p.version}\n`, {flag:'a'});"
-
+          node -e 'const fs=require("fs"); const p=require("./package.json"); fs.writeFileSync(process.env.GITHUB_OUTPUT, "name="+p.name+"\nversion="+p.version+"\n", {flag:"a"});'
       - name: Debug package info
         run: |
           echo "package.name=${{ steps.pkg.outputs.name }}"
