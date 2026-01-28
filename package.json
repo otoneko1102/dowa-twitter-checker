@@ -1,0 +1,30 @@
+{
+  "name": "dowa-twitter-checker",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vite",
+    "clean": "rimraf dist",
+    "build": "npm run clean && cross-env TARGET=chrome vite build && node scripts/package.js chrome && cross-env TARGET=firefox vite build && node scripts/package.js firefox && web-ext build --source-dir dist/firefox --artifacts-dir dist --overwrite-dest && node scripts/rename-xpi.js",
+    "webext:lint": "web-ext lint --source-dir dist/firefox",
+    "preview": "vite preview",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "dowa": "^1.0.6"
+  },
+  "devDependencies": {
+    "@crxjs/vite-plugin": "^2.3.0",
+    "@types/node": "^25.0.10",
+    "archiver": "^7.0.1",
+    "cross-env": "^10.1.0",
+    "rimraf": "^6.1.2",
+    "typescript": "^5.9.3",
+    "vite": "^7.3.1",
+    "web-ext": "^9.2.0"
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "manifest_version": 3,
+  "name": "冷笑チェッカー for Twitter",
+  "version": "1.0.0",
+  "description": "ツイートに冷笑が含まれているかをチェックします",
+  "permissions": ["scripting"],
+  "host_permissions": [
+    "https://twitter.com/*",
+    "https://*.twitter.com/*",
+    "https://x.com/*",
+    "https://*.x.com/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "https://twitter.com/*",
+        "https://*.twitter.com/*",
+        "https://x.com/*",
+        "https://*.x.com/*"
+      ],
+      "js": ["src/content.ts"],
+      "run_at": "document_idle"
+    }
+  ]
+}
