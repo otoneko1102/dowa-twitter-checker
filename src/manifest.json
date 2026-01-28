@@ -10,6 +10,19 @@
     "https://x.com/*",
     "https://*.x.com/*"
   ],
+  "icons": {
+    "16": "src/icons/16x16.png",
+    "48": "src/icons/48x48.png",
+    "128": "src/icons/128x128.png"
+  },
+  "action": {
+    "default_icon": {
+      "16": "src/icons/16x16.png",
+      "48": "src/icons/48x48.png",
+      "128": "src/icons/128x128.png"
+    },
+    "default_title": "冷笑チェッカー"
+  },
   "content_scripts": [
     {
       "matches": [
