@@ -122,9 +122,21 @@ jobs:
           draft: false
           prerelease: false
 
+      - name: Verify release assets
+        if: steps.compare.outputs.should_release == 'true'
+        run: |
+          echo "Listing out/"
+          ls -la out || true
+          CHROME=out/Chrome_${{ steps.pkg.outputs.name }}_v${{ steps.pkg.outputs.version }}.zip
+          FIREFOX=out/Firefox_${{ steps.pkg.outputs.name }}_v${{ steps.pkg.outputs.version }}.xpi
+          if [ ! -f "$CHROME" ]; then echo "Chrome asset missing: $CHROME"; exit 1; fi
+          if [ ! -f "$FIREFOX" ]; then echo "Firefox asset missing: $FIREFOX"; exit 1; fi
+
       - name: Upload Chrome asset to Release
         if: steps.compare.outputs.should_release == 'true'
         uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: out/Chrome_${{ steps.pkg.outputs.name }}_v${{ steps.pkg.outputs.version }}.zip
@@ -134,6 +146,8 @@ jobs:
       - name: Upload Firefox asset to Release
         if: steps.compare.outputs.should_release == 'true'
         uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: out/Firefox_${{ steps.pkg.outputs.name }}_v${{ steps.pkg.outputs.version }}.xpi
