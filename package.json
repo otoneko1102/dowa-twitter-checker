@@ -15,7 +15,7 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "dowa": "^1.0.6"
+    "dowa": "^1.0.7"
   },
   "devDependencies": {
     "@crxjs/vite-plugin": "^2.3.0",
