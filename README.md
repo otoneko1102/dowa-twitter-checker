@@ -2,7 +2,7 @@
 
 Chrome 拡張機能 (Vite でビルド)
 
-- dowa の `contains` を使って、Twitter のツイートに「冷笑」が含まれているかを判定します
+- [dowa](https://www.npmjs.com/package/dowa) の `contains` を使って、Twitter のツイートに「冷笑」が含まれているかを判定します
 - 冷笑が含まれているときのみ、ツイート下部に **⚠️ 冷笑が含まれています！** を表示します
 
 ## 開発手順
