@@ -1,11 +1,19 @@
 {
   "manifest_version": 3,
   "name": "冷笑チェッカー for Twitter",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "ツイートに冷笑が含まれているかをチェックします",
   "permissions": [
-    "scripting"
+    "scripting",
+    "storage"
   ],
+  "background": {
+    "service_worker": "src/background.ts"
+  },
+  "options_ui": {
+    "page": "src/options.html",
+    "open_in_tab": true
+  },
   "host_permissions": [
     "https://twitter.com/*",
     "https://*.twitter.com/*",

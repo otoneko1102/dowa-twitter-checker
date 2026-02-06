@@ -4,6 +4,7 @@
     "module": "esnext",
     "moduleResolution": "node",
     "lib": ["DOM", "ES2020"],
+    "types": ["chrome"],
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
